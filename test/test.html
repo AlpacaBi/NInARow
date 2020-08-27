@@ -4,14 +4,14 @@
 <script src="../src/NInARow.js" charset="utf-8"></script>
 <script>
     // 生成棋盘对象
-    let game = new NInARow("app")
+    const game = new NInARow("app")
 
     // 设置棋格数量
     game.setN(5)
 
     // 设置棋格大小
+    game.setSize(100)
 
     // 渲染
-    game.setSize(100)
     game.render()
 </script>
