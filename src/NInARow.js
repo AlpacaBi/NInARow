@@ -24,21 +24,16 @@
               alert(`${this.flagMap.get(this.flag)} is winner`)
          }
 
-         console.log(this.flagMap.get(this.flag))
-
          this.flag = 3 - this.flag
     }
 
     // 检查是否获胜
     check() {
-
          let ret
-
          // 判断行
          for(let i = 0; i<this.num; i++){
               if(this.isAllEqual(this.parrten[i])) return true
          }
-
          // 判断列
          for(let i = 0; i<this.num; i++){
               ret = []
@@ -47,24 +42,20 @@
               }
               if(this.isAllEqual(ret)) return true
          }
-
          // 判断正斜
          ret = []
          for(let i = 0; i<this.num; i++){
               ret.push(this.parrten[i][i])
          }
          if(this.isAllEqual(ret)) return true
-
          // 判断反斜
          ret = []
          for(let i = 0; i<this.num; i++){
               ret.push(this.parrten[i][this.num-i-1])
          }
          if(this.isAllEqual(ret)) return true
-
          // 上面4个都没return true，最后只能false了
          return false
-        
     }
 
     // 辅助函数，判断数组里面的元素是否一样
@@ -80,6 +71,7 @@
          this.flagMap.set(1,"⭕")
          this.flagMap.set(2,"❌")
 
+         // 代表当前的棋子（1=>⭕  2=>❌）
          this.flag = 1
 
          // 棋盘数据结构初始化
@@ -102,9 +94,14 @@
               
               for(let j = 0; j < num; j++){
                    var column = document.createElement("div")
-                   column.style.display = "inline-block"
+
+                   // 给每个棋格加一个独一无二的id
                    column.setAttribute('id',`gobang${j}${i}`);
+                   // 增加点击事情，并且只能点一次
                    column.addEventListener("click", () => {this.move(j,i)}, {once: true})
+
+                   // 设置棋格样式
+                   column.style.display = "inline-block"
                    column.style.height = `${size}px`
                    column.style.width = `${size}px`
                    column.style.lineHeight = `${size}px`
@@ -112,6 +109,7 @@
                    column.style.textAlign = "center"
                    column.style.border = "1px solid black"
                    column.style.verticalAlign = "middle"
+
                    row.appendChild(column)
               }
          }
