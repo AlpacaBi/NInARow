@@ -152,6 +152,13 @@ class NInARow {
     // 渲染棋盘并开始游戏！！！
     start() {
 
+        // 游戏欢迎语！！！
+        console.log("%c ", "background: url(https://alpaca.cdn.bcebos.com/blackpeople.gif) no-repeat center;padding-left:640px;padding-bottom: 242px;")
+        console.log('%c棺材一抬,世间白来','font-size:20px;color:white;background:black')
+        console.log('%c脚一滑,人一叫,孟婆端汤阎王笑','font-size:20px;color:white;background:black')
+        console.log('%c眼一闭,布一盖,亲戚朋友等上菜','font-size:20px;color:white;background:black')
+        console.log('%c棺一抬,土一埋,一人一句古德拜','font-size:20px;color:white;background:black')
+
         // 使用Map结构来储存⭕和❌就不用频繁if了
         this.flagMap = new Map()
         this.flagMap.set(1,"⭕")

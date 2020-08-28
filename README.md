@@ -2,7 +2,8 @@
 一个棋类小游戏，用户可以通过设置N参数生成N字棋游戏（极客大学前端训练营作业） 
 
 ## Quick setup
-我把库放到自己的cdn上了，直接```<script>```引用就好了
+我把库放到自己的cdn上了，直接```<script>```引用就好了  
+（我不会告诉你打开控制台有彩蛋👨🏿‍✈️👨🏿‍✈️👨🏿‍✈️👨🏿‍✈️👨🏿‍✈️👨🏿‍✈️👨🏿‍✈️）
 
 ```html
 <script src="https://alpaca.cdn.bcebos.com/js/NInARow.js" charset="utf-8"></script>
