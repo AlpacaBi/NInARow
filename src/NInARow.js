@@ -60,7 +60,7 @@
 
     // 辅助函数，判断数组里面的元素是否一样
     isAllEqual(array) {
-         return new Set(array).size == 1 && array.reduce((total, item)=> total+item , 0) != 0
+         return new Set(array).size == 1 && array.reduce((total, item)=> total+item, 0) != 0
     }
 
     // 初始化数据并渲染
@@ -98,7 +98,7 @@
                    // 给每个棋格加一个独一无二的id
                    column.setAttribute('id',`gobang${j}${i}`);
                    // 增加点击事情，并且只能点一次
-                   column.addEventListener("click", () => {this.move(j,i)}, {once: true})
+                   column.addEventListener("click", () => this.move(j,i), {once: true})
 
                    // 设置棋格样式
                    column.style.display = "inline-block"
