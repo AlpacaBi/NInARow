@@ -7,11 +7,14 @@
     const game = new NInARow("app")
 
     // 设置棋格数量
-    game.setN(5)
+    game.N = 3
 
     // 设置棋格大小
-    game.setSize(100)
+    game.cellSize = 150
 
-    // 渲染
-    game.render()
+    // 设置AI
+    game.AI = true
+
+    // 渲染棋盘并开始游戏！！！
+    game.start()
 </script>

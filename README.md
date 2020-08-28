@@ -18,13 +18,16 @@
     const game = new NInARow("app")
 
     // 设置棋格数量
-    game.setN(5)
+    game.N = 3
 
     // 设置棋格大小
-    game.setSize(100)
+    game.cellSize = 150
 
-    // 渲染
-    game.render()
+    // 设置AI开关状态
+    game.AI = true
+
+    // 渲染棋盘并开始游戏！！！
+    game.start()
 </script>
 ```
 
@@ -38,21 +41,35 @@
 const game = new NInARow('app');
 ```
 
+### Getters and Setters
+
+Example setters:
+
+```javascript
+game.N = 5; // 设置棋格数量（5*5）
+game.cellSize = 150; // // 设置棋格大小
+```
+
+
+
+| Property             | Getter | Setter | Description  |
+| -------------------- | ------ | ------ | ------------ |
+| `N`            | -      | ✓      | 设置棋格数量  |
+| `cellSize`            | -      | ✓      | 设置棋格大小 |
+| `AI`            | -      | ✓      | 设置AI开关状态  |
+
 
 ### Methods
 
 Example method use:
 
 ```javascript
-game.setN(5); // 设置棋格数量(5x5)
-game.setSize(100); // 设置棋格大小(每个棋格100px)
+game.start(); // 渲染棋盘并开始游戏！！！
 ```
 
 | Method                     | Parameters       | Description                                                                                                |
 | -------------------------- | ---------------- | ---------------------- |
-| `setN(num)`               | Number           | 设置棋格数量(num x num) |
-| `setSize(num)`            | Number           | 设置棋格大小    |
-| `render()`                | -             | 渲染棋盘       |
+| `start()`                | -             | 渲染棋盘并开始游戏！！！       |
 
 ## Todo List
 ☑增加AI  

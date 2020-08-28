@@ -5,59 +5,87 @@ class NInARow {
     }
 
     // 设置棋格数量
-    setN(num) {
+    set N(num) {
         this.num = num
     }
 
     // 设置棋格大小
-    setSize(size) {
+    set cellSize(size) {
         this.size = size
+    }
+
+    // 设置AI开关状态
+    set AI(bool) {
+        this.AISwitch = bool
+    }
+
+    // 获取棋子图像
+    get flagIcon(){
+        return this.flagMap.get(this.flag)
     }
 
     // 下棋
     move(x, y) {
-        var check = false
         var part = document.getElementById(`gobang${x}${y}`)
-        part.innerText = this.flagMap.get(this.flag)
+        part.innerText = this.flagIcon
         this.pattren[y][x] = this.flag
+        console.log(`man:${this.flag}`)
         
-        if(this.check()){
-            check = true
-            alert(`${this.flagMap.get(this.flag)} is winner`)
+        if(this.check(this.pattren)){
+            setTimeout(()=>{
+                alert(`${this.flagIcon} is winner`)
+            },100)
+        }else{
+            this.flag = 3 - this.flag
         }
 
-        this.flag = 3 - this.flag
+        if(this.AISwitch) this.AIMove()
 
-        if(this.willWin() && !check){
-            alert(`${this.flagMap.get(this.flag)} will win!!!`)
+    }
+
+    AIMove(){
+        if(this.bestChoice()){
+            let [x,y] = this.bestChoice()
+            var part = document.getElementById(`gobang${x}${y}`)
+            part.innerText = this.flagIcon
+            this.pattren[y][x] = this.flag
+         
+            if(this.check(this.pattren)){
+                setTimeout(()=>{
+                    alert(`${this.flagIcon} is winner`)
+                    this.flag = 3 - this.flag
+                },100)
+            }else{
+                this.flag = 3 - this.flag
+            }
         }
     }
 
     // 检查是否获胜
-    check() {
+    check(pattren) {
         let ret
         // 判断行
         for(let i = 0; i<this.num; i++){
-            if(this.isAllEqual(this.pattren[i])) return true
+            if(this.isAllEqual(pattren[i])) return true
         }
         // 判断列
         for(let i = 0; i<this.num; i++){
             ret = []
             for(let j = 0; j<this.num; j++){
-                ret.push(this.pattren[j][i])
+                ret.push(pattren[j][i])
             }
             if(this.isAllEqual(ret)) return true
         }
         // 判断正斜
         ret = []
         for(let i = 0; i<this.num; i++){
-            ret.push(this.pattren[i][i])
+            ret.push(pattren[i][i])
         }
         if(this.isAllEqual(ret)) return true
         // 判断反斜
         ret = []
         for(let i = 0; i<this.num; i++){
-            ret.push(this.pattren[i][this.num-i-1])
+            ret.push(pattren[i][this.num-i-1])
         }
         if(this.isAllEqual(ret)) return true
         // 上面4个都没return true，最后只能false了
@@ -75,20 +103,54 @@ class NInARow {
                 if(this.pattren[i][j]){
                     continue
                 }
-                this.pattren[i][j] = this.flag
-                if(this.check()){
-                    this.pattren[i][j] = 0
-                    return true
-                }else{
-                    this.pattren[i][j] = 0
+                let tmp = this.clone(this.pattren)
+                tmp[i][j] = this.flag
+                if(this.check(tmp)){
+                    return [j, i]
                 }
             }
         }
-        return false
+        return null
     }
 
-    // 初始化数据并渲染
-    render() {
+    clone(obj) {
+        return JSON.parse(JSON.stringify(obj))
+    }
+
+    bestChoice(pattern, color){
+        let p = null
+        if(p = this.willWin()){
+            return p
+        }
+        return null
+        // let result = -2
+        // let point = null
+        // for(let i = 0; i < 3; i++){
+        //     for(let j = 0; j < 3; j++){
+        //         if(this.pattren[i][j]){
+        //             continue
+        //         }
+        //         this.tmp = clone(pattern)
+        //         tmp[i][j] = color;
+        //         let r = this.bestChoice(tmp(3-color)).result
+
+        //         if(-r > result){
+        //             result = -r
+        //             point = [j, i]
+        //         }
+        //     }
+
+            
+        // }
+
+        // return {
+        //     point: point,
+        //     result: point ? result:0
+        // }
+    }
+
+    // 渲染棋盘并开始游戏！！！
+    start() {
 
         // 使用Map结构来储存⭕和❌就不用频繁if了
         this.flagMap = new Map()
