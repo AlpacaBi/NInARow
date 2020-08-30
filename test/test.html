@@ -1,22 +1,27 @@
-<h3>N子棋demo</h1>
-<div>ps:当N>=4的时候，不建议开启AI功能，因为ai算法没优化好棋格数量大会递归到奔溃</div><br/>
+<html>
+    <header>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </header>
 
-<div id="app"></div>
+    <body>
 
-<script src="../src/NInARow.js" charset="utf-8"></script>
-<script>
-    // 生成棋盘对象
-    const game = new NInARow("app")
+        <h3>N子棋demo</h1>
+        <div>ps:当N>=4的时候，不建议开启AI功能，因为ai算法没优化好棋格数量大会递归到奔溃</div><br/>
+        <div id="app"></div>
+        
+        <script src="../src/NInARow.js" charset="utf-8"></script>
+        <script>
+            // 生成棋盘对象
+            const game = new NInARow("app")
+            // 设置棋格数量
+            game.N = 5
+            // 设置棋格大小
+            game.cellSize = 150
+            // 设置AI
+            game.AI = false
+            // 渲染棋盘并开始游戏！！！
+            game.start()
+        </script>
 
-    // 设置棋格数量
-    game.N = 5
-
-    // 设置棋格大小
-    game.cellSize = 150
-
-    // 设置AI
-    game.AI = false
-
-    // 渲染棋盘并开始游戏！！！
-    game.start()
-</script>
+    </body>
+</html>

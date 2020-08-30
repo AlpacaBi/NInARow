@@ -6,30 +6,42 @@
 （我不会告诉你打开控制台有彩蛋👨🏿‍✈️👨🏿‍✈️👨🏿‍✈️👨🏿‍✈️👨🏿‍✈️👨🏿‍✈️👨🏿‍✈️）
 
 ```html
-<script src="https://alpaca.cdn.bcebos.com/js/NInARow.js" charset="utf-8"></script>
+<script src="https://cdn.alpaca.run/js/NInARow.js" charset="utf-8"></script>
 ```
 
 #### Demo
+在线地址：  
+[`https://cdn.alpaca.run/js/ninarow.html`](https://cdn.alpaca.run/js/ninarow.html)
+
 ```html
-<div id="app"></div>
+<html>
+    <header>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </header>
 
-<script src="https://alpaca.cdn.bcebos.com/js/NInARow.js" charset="utf-8"></script>
-<script>
-    // 生成棋盘对象
-    const game = new NInARow("app")
+    <body>
 
-    // 设置棋格数量
-    game.N = 5
+        <h3>N子棋demo</h1>
+        <div>ps:当N>=4的时候，不建议开启AI功能，因为ai算法没优化好棋格数量大会递归到奔溃</div><br/>
+        <div id="app"></div>
+        
+        <script src="https://cdn.alpaca.run/js/NInARow.js" charset="utf-8"></script>
+        <script>
+            // 生成棋盘对象
+            const game = new NInARow("app")
+            // 设置棋格数量
+            game.N = 5
+            // 设置棋格大小
+            game.cellSize = 150
+            // 设置AI
+            game.AI = false
+            // 渲染棋盘并开始游戏！！！
+            game.start()
+        </script>
 
-    // 设置棋格大小
-    game.cellSize = 150
+    </body>
+</html>
 
-    // 设置AI开关状态
-    game.AI = false
-
-    // 渲染棋盘并开始游戏！！！
-    game.start()
-</script>
 ```
 
 ## API
