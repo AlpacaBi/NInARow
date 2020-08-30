@@ -19,13 +19,13 @@
     const game = new NInARow("app")
 
     // 设置棋格数量
-    game.N = 3
+    game.N = 5
 
     // 设置棋格大小
     game.cellSize = 150
 
     // 设置AI开关状态
-    game.AI = true
+    game.AI = false
 
     // 渲染棋盘并开始游戏！！！
     game.start()
@@ -74,6 +74,8 @@ game.start(); // 渲染棋盘并开始游戏！！！
 
 ## Todo List
 ☑增加AI  
+
+⬜优化AI算法（棋格数量多的时候不至于递归到奔溃） 
 
 ⬜增加获胜条件设置（例如可在5*5的棋盘里使用三子棋的规则）  
 
