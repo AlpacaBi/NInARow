@@ -2,6 +2,7 @@
 class NInARow {
     constructor(dom) {
         this.dom = dom
+        this.count = 0
     }
 
     // 设置棋格数量
@@ -26,39 +27,36 @@ class NInARow {
 
     // 下棋
     move(x, y) {
-        var part = document.getElementById(`gobang${x}${y}`)
+        let part = document.getElementById(`gobang${x}${y}`)
         part.innerText = this.flagIcon
         this.pattren[y][x] = this.flag
-        console.log(`man:${this.flag}`)
         
         if(this.check(this.pattren)){
-            setTimeout(()=>{
-                alert(`${this.flagIcon} is winner`)
-            },100)
-        }else{
-            this.flag = 3 - this.flag
+            alert(`${this.flagIcon} is winner`)
+            return
         }
 
-        if(this.AISwitch) this.AIMove()
+        this.flag = 3 - this.flag
+
+        if(this.AISwitch) this.AIMove(this.pattren)
 
     }
 
-    AIMove(){
-        if(this.bestChoice()){
-            let [x,y] = this.bestChoice()
-            var part = document.getElementById(`gobang${x}${y}`)
+    AIMove(pattern){
+        let choice = this.bestChoice(pattern, this.flag)
+        console.log(choice)
+        if(choice.point){
+            let [x, y] = choice.point
+            let part = document.getElementById(`gobang${x}${y}`)
             part.innerText = this.flagIcon
             this.pattren[y][x] = this.flag
-         
-            if(this.check(this.pattren)){
-                setTimeout(()=>{
-                    alert(`${this.flagIcon} is winner`)
-                    this.flag = 3 - this.flag
-                },100)
-            }else{
-                this.flag = 3 - this.flag
-            }
         }
+        if(this.check(this.pattren)){
+            alert(`${this.flagIcon} is winner`)
+        }
+
+        this.flag = 3 - this.flag
+
     }
 
     // 检查是否获胜
@@ -97,14 +95,14 @@ class NInARow {
         return new Set(array).size == 1 && array.reduce((total, item)=> total+item, 0) != 0
     }
 
-    willWin() {
+    willWin(pattren, flag) {
         for(let i = 0; i < this.num; i++){
             for(let j = 0; j < this.num; j++){
-                if(this.pattren[i][j]){
+                if(pattren[i][j]){
                     continue
                 }
-                let tmp = this.clone(this.pattren)
-                tmp[i][j] = this.flag
+                let tmp = this.clone(pattren)
+                tmp[i][j] = flag
                 if(this.check(tmp)){
                     return [j, i]
                 }
@@ -117,36 +115,42 @@ class NInARow {
         return JSON.parse(JSON.stringify(obj))
     }
 
-    bestChoice(pattern, color){
+    bestChoice(pattren, flag){
+        
         let p = null
-        if(p = this.willWin()){
-            return p
+        if(p = this.willWin(pattren, flag)){
+            return {
+                point: p,
+                result: 1
+            }
         }
-        return null
-        // let result = -2
-        // let point = null
-        // for(let i = 0; i < 3; i++){
-        //     for(let j = 0; j < 3; j++){
-        //         if(this.pattren[i][j]){
-        //             continue
-        //         }
-        //         this.tmp = clone(pattern)
-        //         tmp[i][j] = color;
-        //         let r = this.bestChoice(tmp(3-color)).result
+    
+        let result = -1
+        let point = null
+        outer: for(let i = 0; i < this.num; i++){
+            for(let j = 0; j < this.num; j++){
+                if(pattren[i][j]){
+                    continue
+                }
+                let tmp = this.clone(pattren)
+                tmp[i][j] = flag;
+                let r = this.bestChoice(tmp, 3-flag).result
+                this.count++
+                console.log(this.count)
 
-        //         if(-r > result){
-        //             result = -r
-        //             point = [j, i]
-        //         }
-        //     }
+                if(-r >= result){
+                    result = -r
+                    point = [j, i]
+                }
 
-            
-        // }
+            }
 
-        // return {
-        //     point: point,
-        //     result: point ? result:0
-        // }
+        }
+
+        return {
+            point: point,
+            result: point ? result:0
+        }
     }
 
     // 渲染棋盘并开始游戏！！！
@@ -206,6 +210,7 @@ class NInARow {
                 row.appendChild(column)
             }
         }
+
     }
 
 }
