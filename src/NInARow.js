@@ -2,7 +2,6 @@
 class NInARow {
     constructor(dom) {
         this.dom = dom
-        this.count = 0
     }
 
     // 设置棋格数量
